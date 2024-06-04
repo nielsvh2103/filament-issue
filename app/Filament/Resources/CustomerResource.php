@@ -3,25 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CustomerResource\Pages;
-use App\Filament\Resources\CustomerResource\RelationManagers;
-use App\Models\Client;
-use App\Models\ContactPerson;
 use App\Models\Customer;
-use App\Models\Service;
-use Filament\Forms;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Form;
-use Filament\Forms\Get;
-use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\HtmlString;
 
 class CustomerResource extends Resource
 {
@@ -33,19 +20,12 @@ class CustomerResource extends Resource
     {
         return $form
             ->schema([
-                Section::make('Context')
-                    ->columnSpan(1)
-                    ->schema([
-                        TextInput::make('quantity')
-                            ->numeric()
-                            ->required(),
-                        Select::make('customer')
-                            ->options(['Test1', 'Test2', 'Lorem', 'Ipsum'])
-                            ->disabled(fn($get, $state) => $get('quantity') > 0 && $state)
-                            ->searchable()
-                            ->required()
-                            ->live(),
-                    ]),
+                Textarea::make('description')
+                    ->label(false)
+                    ->maxLength('180')
+                    ->grow()
+                    ->nullable()
+                    ->live(),
             ]);
     }
 
